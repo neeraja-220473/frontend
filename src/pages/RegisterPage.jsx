@@ -30,13 +30,25 @@ export default function RegisterPage() {
     e.preventDefault();
     if (!validate()) return;
     setLoading(true);
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        setErrors({ form: data.message || "Registration failed. Please try again." });
+        setLoading(false);
+        return;
+      }
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("role", data.role);
+      window.location.href = data.role === "supplier" ? "/supplier-dashboard" : "/buyer-dashboard";
+    } catch (err) {
+      setErrors({ form: "Unable to connect to server. Make sure the backend is running." });
       setLoading(false);
-      localStorage.setItem("role", formData.role);
-      localStorage.setItem("token", "mock-token");
-      window.location.href = formData.role === "supplier" ? "/supplier-dashboard" : "/buyer-dashboard";
-    }, 1000);
+    }
   };
 
   const handleChange = (e) => {
@@ -120,6 +132,9 @@ export default function RegisterPage() {
             </div>
             {errors.role && <p className="text-red-500 text-sm mt-1">{errors.role}</p>}
           </div>
+          {errors.form && (
+            <p className="text-red-500 text-sm mb-3 text-center">{errors.form}</p>
+          )}
           <button
             type="submit"
             disabled={loading}
