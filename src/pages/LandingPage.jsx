@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
 import { FaLinkedin, FaTwitter, FaFacebook, FaBoxOpen, FaClipboardList, FaChartBar, FaFileInvoice, FaWarehouse } from "react-icons/fa";
 
+import FeaturesPage from "./FeaturesPage";
+import { FaLinkedin, FaTwitter, FaFacebook } from "react-icons/fa";
+import bg from "../backgroundimage.jpg";
+
+
 export default function LandingPage() {
   // Features data
   const features = [
