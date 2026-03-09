@@ -1,4 +1,4 @@
-export default function InventoryPage() {
+/*export default function InventoryPage() {
   const inventory = [
     { product: "Rice Bags", stock: 50, status: "Normal" },
     { product: "Oil Bottles", stock: 8, status: "Low Stock" },
@@ -28,6 +28,74 @@ export default function InventoryPage() {
           ))}
         </tbody>
       </table>
+    </div>
+  );
+}*/
+
+export default function InventoryPage() {
+  const inventory = [
+    { product: "Rice Bags", stock: 50, status: "Normal" },
+    { product: "Oil Bottles", stock: 8, status: "Low Stock" },
+    { product: "Soap", stock: 200, status: "Normal" },
+  ];
+
+  return (
+    <div className="min-h-screen p-8 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100">
+
+      {/* Title */}
+      <h2 className="text-4xl font-bold text-center mb-10 text-purple-700">
+        📦 Inventory Dashboard
+      </h2>
+
+      {/* Table Container */}
+      <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
+
+        <table className="w-full">
+
+          {/* Table Header */}
+          <thead className="bg-gradient-to-r from-purple-500 to-blue-500 text-white">
+            <tr>
+              <th className="p-4 text-left">Product</th>
+              <th className="p-4 text-left">Available Stock</th>
+              <th className="p-4 text-left">Status</th>
+            </tr>
+          </thead>
+
+          {/* Table Body */}
+          <tbody>
+            {inventory.map((item, i) => (
+              <tr
+                key={i}
+                className={`transition duration-300 hover:bg-blue-50 hover:scale-[1.01] ${
+                  i % 2 === 0 ? "bg-gray-50" : "bg-white"
+                }`}
+              >
+                <td className="p-4 font-semibold text-gray-700">
+                  📦 {item.product}
+                </td>
+
+                <td className="p-4 text-blue-600 font-bold">
+                  {item.stock}
+                </td>
+
+                <td className="p-4">
+                  <span
+                    className={`px-4 py-1 rounded-full text-sm font-semibold shadow ${
+                      item.status === "Low Stock"
+                        ? "bg-red-200 text-red-700"
+                        : "bg-green-200 text-green-700"
+                    }`}
+                  >
+                    {item.status === "Low Stock" ? "⚠ Low Stock" : "✅ Normal"}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+
+        </table>
+
+      </div>
     </div>
   );
 }
